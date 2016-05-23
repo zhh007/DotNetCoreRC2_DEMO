@@ -12,6 +12,8 @@ using Microsoft.Extensions.Logging;
 using WebApplication4.Data;
 using WebApplication4.Models;
 using WebApplication4.Services;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Formatters;
 
 namespace WebApplication4
 {
@@ -52,7 +54,13 @@ namespace WebApplication4
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddMvc();
+            //services.AddMvc();
+
+            services.AddMvc().AddMvcOptions(options =>
+            {
+                //options.InputFormatters.RemoveAll(formatter => formatter.Instance.GetType() == typeof(XmlDataContractSerializerInputFormatter));
+                options.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter());
+            });
 
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();

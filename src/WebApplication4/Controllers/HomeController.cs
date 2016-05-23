@@ -31,5 +31,22 @@ namespace WebApplication4.Controllers
         {
             return View();
         }
+
+        [Produces("application/xml")]
+        public object GetXml()
+        {
+            return new TestClass { Name = "a", Age = 123 };
+        }
+
+        public object GetJson()
+        {
+            return new TestClass { Name = "a", Age = 123 };
+        }
+
+        public class TestClass
+        {
+            public string Name { get; set; }
+            public int Age { get; set; }
+        }
     }
 }
